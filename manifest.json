@@ -3,9 +3,19 @@
   "name": "N0V4 AI",
   "short_name": "N0V4",
   "start_url": "/n0v4/",
+  "scope": "/n0v4/",
   "display": "standalone",
   "background_color": "#050914",
   "theme_color": "#050914",
-  "description": "Your personal N0V4 assistant"
+  "description": "Your personal N0V4 assistant",
+  "icons": [
+    {
+      "src": "/n0v4/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
 }
+
 
