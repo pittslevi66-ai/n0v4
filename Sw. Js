@@ -1,0 +1,29 @@
+
+const CACHE_NAME = "n0v4-v1";
+const FILES = [
+  "/n0v4/",
+  "/n0v4/index.html",
+  "/n0v4/manifest.json",
+  "/n0v4/icon-512.png"
+];
+
+self.addEventListener("install", event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => cache.addAll(FILES))
+  );
+  self.skipWaiting();
+});
+
+self.addEventListener("activate", event => {
+  event.waitUntil(self.clients.claim());
+});
+
+self.addEventListener("fetch", event => {
+  if (event.request.method !== "GET") return;
+
+  event.respondWith(
+    caches.match(event.request).then(cached => {
+      return cached || fetch(event.request);
+    })
+  );
+});
