@@ -32,6 +32,15 @@
   padding: 0;
 }
 
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/n0v4/sw.js")
+      .catch(error => console.error("N0V4 offline setup:", error));
+  });
+}
+</script>
+
 body {
   min-height: 100vh;
   background:
