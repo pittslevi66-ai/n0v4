@@ -1,0 +1,2207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, inital-scale=1.0" />
+<title></title>
+<style type="text/css">
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #050914;
+  --panel: #0b1425;
+  --panel2: #101d32;
+  --blue: #388bff;
+  --cyan: #39d9ff;
+  --purple: #8765ff;
+  --text: #edf4ff;
+  --muted: #8494ad;
+  --border: rgba(125, 165, 220, .13);
+  --glow: 0 0 30px rgba(56, 139, 255, .15);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 75% 10%, rgba(42, 100, 190, .13), transparent 35%),
+    radial-gradient(circle at 15% 85%, rgba(70, 45, 150, .10), transparent 35%),
+    var(--bg);
+  color: var(--text);
+  font-family: Inter, sans-serif;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* MAIN LAYOUT */
+
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  min-width: 260px;
+  min-height: 100vh;
+  padding: 28px 18px;
+  display: flex;
+  flex-direction: column;
+  background: rgba(7, 14, 29, .94);
+  border-right: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 4px 8px 42px;
+}
+
+.brand-icon {
+  width: 43px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  font: 800 23px "Space Grotesk";
+  box-shadow: 0 0 25px rgba(56, 139, 255, .3);
+}
+
+.brand h2 {
+  font: 700 21px "Space Grotesk";
+  letter-spacing: 2px;
+}
+
+.brand span {
+  font-size: 8px;
+  letter-spacing: 1.4px;
+  color: var(--muted);
+}
+
+.nav-section {
+  margin-bottom: 30px;
+}
+
+.nav-label, .section-label {
+  display: block;
+  color: #64758f;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin: 0 10px 13px;
+}
+
+.nav-item {
+  width: 100%;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #91a1b9;
+  padding: 13px 14px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  text-align: left;
+  margin: 4px 0;
+  font-size: 14px;
+  transition: .2s ease;
+}
+
+.nav-item:hover {
+  background: rgba(56, 139, 255, .08);
+  color: white;
+}
+
+.nav-item.active {
+  background: linear-gradient(100deg, rgba(56, 139, 255, .18), rgba(56, 139, 255, .04));
+  border-color: rgba(56, 139, 255, .2);
+  color: #7bb4ff;
+  box-shadow: inset 3px 0 var(--blue);
+}
+
+.history-list {
+  display: none;
+}
+
+.history-list.open {
+  display: block;
+  padding: 8px;
+}
+
+.sidebar-bottom {
+  margin-top: auto;
+}
+
+.system-card {
+  padding: 13px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(16, 29, 50, .65);
+  color: #a6b7d0;
+  font-size: 9px;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 20px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  background: #40e6a0;
+  box-shadow: 0 0 12px #40e6a0;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 5px;
+  border-top: 1px solid var(--border);
+}
+
+.profile-avatar {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: linear-gradient(135deg, #284e91, #6748a8);
+  font-weight: 800;
+}
+
+.profile strong, .profile small {
+  display: block;
+}
+
+.profile strong {
+  font-size: 12px;
+}
+
+.profile small {
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 3px;
+}
+
+/* MAIN CONTENT */
+
+.main-content {
+  flex: 1;
+  min-width: 0;
+  padding: 0 5%;
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.topbar {
+  height: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 55px;
+}
+
+.topbar-label {
+  color: #687d9c;
+  font-size: 9px;
+  letter-spacing: 1.7px;
+}
+
+.topbar h2 {
+  font: 600 19px "Space Grotesk";
+  margin-top: 5px;
+}
+
+.notification-button {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: white;
+  background: var(--panel);
+}
+
+/* OVERVIEW */
+
+.welcome-screen {
+  max-width: 850px;
+  margin: 0 auto 55px;
+  animation: fadeUp .5s ease;
+}
+
+.welcome-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 13px;
+  background: rgba(56, 139, 255, .09);
+  border: 1px solid rgba(56, 139, 255, .2);
+  border-radius: 30px;
+  color: #8bbaff;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+}
+
+.welcome-screen h1 {
+  font: 700 clamp(42px, 7vw, 72px) "Space Grotesk";
+  line-height: 1.08;
+  margin: 28px 0 17px;
+}
+
+.welcome-screen h1 span,
+.memory-header h1 span,
+.history-header h1 span {
+  background: linear-gradient(90deg, #53a5ff, #8b78ff, #39d9ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.welcome-screen > p {
+  max-width: 520px;
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 13px;
+  margin-top: 38px;
+}
+
+.action-card {
+  text-align: left;
+  padding: 21px;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  background: linear-gradient(145deg, rgba(16, 29, 50, .85), rgba(9, 17, 32, .8));
+  color: white;
+  transition: .25s ease;
+}
+
+.action-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(56, 139, 255, .5);
+  box-shadow: var(--glow);
+}
+
+.action-card > span {
+  display: block;
+  color: var(--cyan);
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.action-card strong, .action-card small {
+  display: block;
+}
+
+.action-card strong {
+  font-size: 12px;
+  margin-bottom: 7px;
+}
+
+.action-card small {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+/* CHAT */
+
+.chat-section {
+  max-width: 850px;
+  margin: 0 auto 50px;
+}
+
+.chat-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.chat-heading h2 {
+  font: 600 21px "Space Grotesk";
+}
+
+.chat-heading button {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 13px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.chat-messages {
+  min-height: 180px;
+  max-height: 480px;
+  overflow-y: auto;
+  padding: 20px 0;
+}
+
+.message {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  animation: fadeUp .3s ease;
+}
+
+.message-avatar {
+  flex: 0 0 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.user-message .message-avatar {
+  background: #1d304b;
+}
+
+.message-content {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 15px;
+  border: 1px solid var(--border);
+  background: rgba(11, 20, 37, .8);
+  border-radius: 4px 13px 13px 13px;
+}
+
+.user-message .message-content {
+  background: rgba(35, 76, 130, .18);
+}
+
+.message-content strong {
+  display: block;
+  color: #80b8ff;
+  font-size: 10px;
+  letter-spacing: 1px;
+  margin-bottom: 7px;
+}
+
+.message-content p {
+  color: #d5e0f1;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.input-container {
+  padding: 13px 16px;
+  background: rgba(11, 20, 37, .9);
+  border: 1px solid rgba(94, 147, 220, .22);
+  border-radius: 15px;
+  box-shadow: var(--glow);
+}
+
+.input-container textarea {
+  width: 100%;
+  resize: vertical;
+  min-height: 45px;
+  max-height: 130px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 13px;
+  padding: 8px 0;
+}
+
+.input-container textarea::placeholder {
+  color: #61728c;
+}
+
+.input-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+
+.input-bottom span {
+  color: #60738f;
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+
+#sendButton, #addMemoryButton, #newChatButton {
+  border: none;
+  border-radius: 9px;
+  background: linear-gradient(110deg, var(--blue), var(--purple));
+  color: white;
+  padding: 10px 17px;
+  font-size: 11px;
+  font-weight: 700;
+  box-shadow: 0 5px 20px rgba(56, 139, 255, .2);
+}
+
+.chat-footer {
+  color: #53647c;
+  text-align: center;
+  font-size: 10px;
+  margin-top: 17px;
+}
+
+/* MEMORY CENTRE */
+
+.memory-panel {
+  max-width: 950px;
+  margin: 0 auto 60px;
+  animation: fadeUp .45s ease;
+}
+
+.memory-header {
+  margin-bottom: 28px;
+}
+
+.memory-header h1,
+.history-header h1 {
+  font: 700 clamp(38px, 6vw, 58px) "Space Grotesk";
+  margin: 15px 0 12px;
+}
+
+.memory-header > p,
+.history-header > p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.memory-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 20px;
+  border: 1px solid rgba(56, 139, 255, .22);
+  background: linear-gradient(110deg, rgba(30, 80, 145, .16), rgba(13, 24, 44, .8));
+  border-radius: 14px;
+  margin-bottom: 22px;
+}
+
+.memory-notice > span {
+  font-size: 25px;
+  color: var(--cyan);
+}
+
+.memory-notice strong {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 7px;
+}
+
+.memory-notice p {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.memory-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 13px;
+  margin-bottom: 38px;
+}
+
+.memory-stat {
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: rgba(11, 20, 37, .8);
+}
+
+.memory-stat strong {
+  display: block;
+  font: 700 25px "Space Grotesk";
+  color: #8bbaff;
+  margin-bottom: 6px;
+}
+
+.memory-stat span {
+  color: #7386a2;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+}
+
+.memory-tools {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 18px;
+}
+
+.memory-tools h2,
+.history-toolbar h2 {
+  font: 600 21px "Space Grotesk";
+}
+
+#memorySearch,
+#historySearch {
+  width: min(300px, 48%);
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel);
+  color: white;
+  outline: none;
+  font-size: 11px;
+}
+
+#memorySearch:focus,
+#historySearch:focus,
+.memory-form input:focus,
+.memory-form textarea:focus,
+.memory-form select:focus {
+  border-color: rgba(56, 139, 255, .7);
+  box-shadow: 0 0 0 3px rgba(56, 139, 255, .08);
+}
+
+.memory-form {
+  padding: 22px;
+  background: linear-gradient(145deg, rgba(16, 29, 50, .8), rgba(9, 17, 32, .9));
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  margin-bottom: 22px;
+}
+
+.memory-form h3 {
+  font: 600 15px "Space Grotesk";
+  margin-bottom: 16px;
+}
+
+.memory-form input,
+.memory-form textarea,
+.memory-form select {
+  display: block;
+  width: 100%;
+  margin-bottom: 11px;
+  padding: 13px 14px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: rgba(5, 9, 20, .8);
+  color: white;
+  outline: none;
+  font-size: 12px;
+}
+
+.memory-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.memory-form select option {
+  background: var(--panel);
+}
+
+#addMemoryButton {
+  margin-top: 4px;
+}
+
+.memory-list {
+  display: grid;
+  gap: 12px;
+}
+
+.memory-empty {
+  text-align: center;
+  padding: 42px 20px;
+  border: 1px dashed rgba(125, 165, 220, .2);
+  border-radius: 15px;
+  background: rgba(11, 20, 37, .45);
+}
+
+.memory-empty > span {
+  display: block;
+  color: var(--cyan);
+  font-size: 30px;
+  margin-bottom: 13px;
+}
+
+.memory-empty h3 {
+  font: 600 16px "Space Grotesk";
+  margin-bottom: 8px;
+}
+
+.memory-empty p {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.memory-footer,
+.history-footer {
+  color: #61728c;
+  font-size: 10px;
+  line-height: 1.6;
+  margin-top: 22px;
+}
+
+/* HISTORY CENTRE */
+
+.history-panel {
+  max-width: 950px;
+  margin: 0 auto 60px;
+  animation: fadeUp .45s ease;
+}
+
+.history-header {
+  margin-bottom: 35px;
+}
+
+.history-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 18px;
+}
+
+.history-toolbar span {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 7px;
+}
+
+#newChatButton {
+  white-space: nowrap;
+}
+
+#historySearch {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.history-cards {
+  display: grid;
+  gap: 12px;
+}
+
+.history-empty {
+  text-align: center;
+  padding: 55px 20px;
+  border: 1px dashed rgba(125, 165, 220, .2);
+  border-radius: 15px;
+  background: rgba(11, 20, 37, .45);
+}
+
+.history-empty > span {
+  display: block;
+  color: var(--cyan);
+  font-size: 32px;
+  margin-bottom: 14px;
+}
+
+.history-empty h3 {
+  font: 600 17px "Space Grotesk";
+  margin-bottom: 8px;
+}
+
+.history-empty p {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.history-card {
+  padding: 19px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  background: linear-gradient(115deg, rgba(16, 29, 50, .85), rgba(9, 17, 32, .85));
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  transition: .2s ease;
+}
+
+.history-card:hover {
+  border-color: rgba(56, 139, 255, .45);
+  transform: translateY(-2px);
+  box-shadow: var(--glow);
+}
+
+.history-card-main {
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.history-card-main h3 {
+  font: 600 14px "Space Grotesk";
+  overflow-wrap: anywhere;
+  margin-bottom: 7px;
+}
+
+.history-card-main p {
+  color: var(--muted);
+  font-size: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.history-card-main small {
+  display: block;
+  color: #64758f;
+  font-size: 9px;
+  margin-top: 9px;
+}
+
+.history-card-actions {
+  display: flex;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+.history-card-actions button {
+  border: 1px solid var(--border);
+  background: rgba(5, 9, 20, .6);
+  color: #91bfff;
+  padding: 9px 11px;
+  border-radius: 8px;
+  font-size: 10px;
+}
+
+.history-card-actions button:hover {
+  border-color: var(--blue);
+}
+
+.history-card-actions .delete-chat {
+  color: #ff899c;
+}
+
+.history-card-actions .delete-chat:hover {
+  border-color: #ff899c;
+}
+
+/* ANIMATIONS */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 760px) {
+  .sidebar {
+    width: 75px;
+    min-width: 75px;
+    padding: 20px 9px;
+  }
+
+  .brand {
+    justify-content: center;
+    padding: 4px 0 35px;
+  }
+
+  .brand > div:last-child,
+  .nav-label,
+  .nav-item span,
+  .sidebar-bottom,
+  .history-list {
+    display: none;
+  }
+
+  .nav-item {
+    justify-content: center;
+    padding: 14px 5px;
+    font-size: 18px;
+  }
+
+  .main-content {
+    padding: 0 18px;
+  }
+
+  .topbar {
+    height: 78px;
+    margin-bottom: 35px;
+  }
+
+  .action-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .action-card {
+    padding: 17px;
+  }
+
+  .memory-tools {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  #memorySearch {
+    width: 100%;
+  }
+
+  .memory-stats {
+    gap: 9px;
+  }
+
+  .memory-stat {
+    padding: 15px;
+  }
+
+  .history-card {
+    align-items: flex-start;
+  }
+
+  .history-card-actions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 420px) {
+  .sidebar {
+    width: 62px;
+    min-width: 62px;
+  }
+
+  .main-content {
+    padding: 0 13px;
+  }
+
+  .memory-form {
+    padding: 16px;
+  }
+
+  .memory-notice {
+    padding: 15px;
+  }
+
+  .history-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .history-card {
+    padding: 14px;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>N0V4 — Command Centre</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">N</div>
+      <div>
+        <h2>N0V4</h2>
+        <span>PERSONAL INTELLIGENCE</span>
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <span class="nav-label">WORKSPACE</span>
+      <button class="nav-item active" id="homeButton">⌂ <span>Overview</span></button>
+      <button class="nav-item" id="chatButton">✧ <span>New conversation</span></button>
+      <button class="nav-item" id="historyButton">◷ <span>History</span></button>
+      <div class="history-list" id="historyList"></div>
+    </div>
+
+    <div class="nav-section">
+      <span class="nav-label">SYSTEM</span>
+      <button class="nav-item" id="memoryButton">◈ <span>Memory</span></button>
+      <button class="nav-item" id="settingsButton">⚙ <span>Settings</span></button>
+    </div>
+
+    <div class="sidebar-bottom">
+      <div class="system-card">
+        <span class="status-dot"></span>
+        <span>N0V4 SYSTEM ONLINE</span>
+      </div>
+      <div class="profile">
+        <div class="profile-avatar">B</div>
+        <div>
+          <strong>Boss</strong>
+          <small>Administrator</small>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+
+    <header class="topbar">
+      <div>
+        <span class="topbar-label">YOUR PERSONAL WORKSPACE</span>
+        <h2 id="pageName">Overview</h2>
+      </div>
+      <button id="notificationButton" class="notification-button">◎</button>
+    </header>
+
+    <!-- OVERVIEW -->
+
+    <section id="welcomeScreen" class="welcome-screen">
+      <div class="welcome-tag">
+        <span class="status-dot"></span>
+        N0V4 IS READY
+      </div>
+
+      <h1>Welcome back,<br><span>Boss.</span></h1>
+      <p>Your personal intelligence system is ready. What are we working on today?</p>
+
+      <div class="action-grid">
+        <button class="action-card" data-prompt="Let's have a conversation">
+          <span>✧</span>
+          <strong>Start chatting</strong>
+          <small>Open a new conversation</small>
+        </button>
+
+        <button class="action-card" data-prompt="What do you remember about my projects?">
+          <span>◈</span>
+          <strong>Explore memory</strong>
+          <small>Access stored knowledge</small>
+        </button>
+
+        <button class="action-card" data-prompt="Tell me something interesting">
+          <span>⌁</span>
+          <strong>Surprise me</strong>
+          <small>See what N0V4 can do</small>
+        </button>
+      </div>
+    </section>
+
+    <!-- CHAT -->
+
+    <section class="chat-section">
+      <div class="chat-heading">
+        <div>
+          <span class="section-label">INTERACTION TERMINAL</span>
+          <h2 id="conversationTitle">Chat with N0V4</h2>
+        </div>
+        <button id="clearChat">Clear chat</button>
+      </div>
+
+      <div id="chatMessages" class="chat-messages">
+        <div class="message nova-message">
+          <div class="message-avatar">N</div>
+          <div class="message-content">
+            <strong>N0V4</strong>
+            <p>System initialised. I'm ready when you are.</p>
+          </div>
+        </div>
+      </div>
+
+      <form id="chatForm" class="input-container">
+        <textarea id="userInput" placeholder="Message N0V4..." rows="1"></textarea>
+        <div class="input-bottom">
+          <span>N0V4 V2.0 · LOCAL MODE</span>
+          <button type="submit" id="sendButton">Send ↗</button>
+        </div>
+      </form>
+
+      <p class="chat-footer">N0V4 is your personal assistant. Keep building.</p>
+    </section>
+
+    <!-- HISTORY CENTRE -->
+
+    <section id="historyPanel" class="history-panel" hidden>
+
+      <div class="history-header">
+        <span class="section-label">CONVERSATION ARCHIVE</span>
+        <h1>Chat <span>History.</span></h1>
+        <p>Your previous conversations, saved and ready to reopen.</p>
+      </div>
+
+      <div class="history-toolbar">
+        <div>
+          <h2>Previous conversations</h2>
+          <span id="historyCount">0 conversations saved</span>
+        </div>
+
+        <button id="newChatButton">＋ New chat</button>
+      </div>
+
+      <input
+        type="search"
+        id="historySearch"
+        placeholder="Search conversations..."
+        aria-label="Search conversations"
+      >
+
+      <div id="historyCards" class="history-cards">
+        <div class="history-empty">
+          <span>◷</span>
+          <h3>No conversations yet</h3>
+          <p>Your conversations will appear here automatically.</p>
+        </div>
+      </div>
+
+      <p class="history-footer">
+        Your conversations are stored locally in this browser.
+      </p>
+
+    </section>
+
+    <!-- MEMORY CENTRE -->
+
+    <section id="memoryPanel" class="memory-panel" hidden>
+
+      <div class="memory-header">
+        <span class="section-label">N0V4 KNOWLEDGE BASE</span>
+        <h1>Memory <span>Centre.</span></h1>
+        <p>Everything N0V4 has saved and learned from your conversations.</p>
+      </div>
+
+      <div class="memory-notice">
+        <span>◈</span>
+        <div>
+          <strong>Automatic memory is enabled</strong>
+          <p>N0V4 can recognise useful information and save it on this device. You stay in control and can edit or delete memories.</p>
+        </div>
+      </div>
+
+      <div class="memory-stats" id="memoryStats">
+        <div class="memory-stat">
+          <strong id="memoryCount">0</strong>
+          <span>STORED MEMORIES</span>
+        </div>
+        <div class="memory-stat">
+          <strong>LOCAL</strong>
+          <span>STORAGE MODE</span>
+        </div>
+      </div>
+
+      <div class="memory-tools">
+        <div>
+          <span class="section-label">YOUR KNOWLEDGE</span>
+          <h2>Saved memories</h2>
+        </div>
+        <input type="search" id="memorySearch" placeholder="Search memories...">
+      </div>
+
+      <form id="memoryForm" class="memory-form">
+        <h3>Add a memory manually</h3>
+
+        <input type="text" id="memoryTitle" placeholder="Memory title..." maxlength="80" required>
+
+        <textarea id="memoryContent" placeholder="What should N0V4 know?" rows="3" maxlength="500" required></textarea>
+
+        <select id="memoryCategory">
+          <option value="general">General</option>
+          <option value="personal">Personal</option>
+          <option value="preferences">Preferences</option>
+          <option value="projects">Projects</option>
+        </select>
+
+        <button type="submit" id="addMemoryButton">＋ Save memory</button>
+      </form>
+
+      <div class="memory-list" id="memoryList">
+        <div class="memory-empty">
+          <span>◈</span>
+          <h3>No memories yet</h3>
+          <p>As N0V4 discovers useful information, it will appear here.</p>
+        </div>
+      </div>
+
+      <p class="memory-footer">
+        Memories are stored in this browser on this device.
+      </p>
+
+    </section>
+
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+
+<script type="text/javascript">
+(function() {
+
+/* ==========================================
+   N0V4 — VERSION 8.0
+   MEMORY CENTRE + CHAT HISTORY
+========================================== */
+
+const chat = document.getElementById("chatMessages");
+const form = document.getElementById("chatForm");
+const input = document.getElementById("userInput");
+const welcome = document.getElementById("welcomeScreen");
+
+const memoryPanel = document.getElementById("memoryPanel");
+const memoryList = document.getElementById("memoryList");
+const memoryForm = document.getElementById("memoryForm");
+const memorySearch = document.getElementById("memorySearch");
+const memoryCount = document.getElementById("memoryCount");
+const memoryStats = document.getElementById("memoryStats");
+
+const historyPanel = document.getElementById("historyPanel");
+const historyCards = document.getElementById("historyCards");
+const historySearch = document.getElementById("historySearch");
+const historyCount = document.getElementById("historyCount");
+const historyList = document.getElementById("historyList");
+
+const conversationTitle = document.getElementById("conversationTitle");
+
+const MEMORY_KEY = "n0v4Memories";
+const CHAT_HISTORY_KEY = "n0v4ChatHistory";
+const OLD_CHAT_KEY = "n0v4Conversation";
+
+let memories = [];
+let conversations = [];
+let activeConversationId = null;
+let activePage = "home";
+
+/* ==========================================
+   GENERAL HELPERS
+========================================== */
+
+function makeId() {
+    return Date.now().toString(36) +
+        Math.random().toString(36).slice(2, 9);
+}
+
+function safeText(value) {
+    return String(value ?? "").trim();
+}
+
+function formatDate(date) {
+    if (!date) return "Unknown date";
+
+    const parsed = new Date(date);
+
+    if (isNaN(parsed.getTime())) return "Unknown date";
+
+    return parsed.toLocaleString([], {
+        dateStyle: "medium",
+        timeStyle: "short"
+    });
+}
+
+function saveJSON(key, data) {
+    try {
+        localStorage.setItem(key, JSON.stringify(data));
+        return true;
+    } catch (error) {
+        console.error("N0V4 storage error:", error);
+        return false;
+    }
+}
+
+/* ==========================================
+   MEMORY CENTRE
+========================================== */
+
+function containsSensitiveInformation(text) {
+    const patterns = [
+        /\bpassword\b/i,
+        /\bpasscode\b/i,
+        /\bpin number\b/i,
+        /\bcredit card\b/i,
+        /\bdebit card\b/i,
+        /\bbank account\b/i,
+        /\bhome address\b/i,
+        /\bmy address\b/i,
+        /\bphone number\b/i,
+        /\bmedical diagnosis\b/i,
+        /\bmy diagnosis\b/i,
+        /\bmy medication\b/i,
+        /\bmy school\b/i,
+        /\bmy exact location\b/i
+    ];
+
+    return patterns.some(pattern => pattern.test(text));
+}
+
+function loadMemories() {
+    try {
+        memories = JSON.parse(
+            localStorage.getItem(MEMORY_KEY)
+        ) || [];
+    } catch {
+        memories = [];
+    }
+
+    renderMemories();
+}
+
+function saveMemories() {
+    saveJSON(MEMORY_KEY, memories);
+    renderMemories();
+}
+
+function createMemory(title, content, category = "General") {
+    title = safeText(title);
+    content = safeText(content);
+
+    if (!title || !content) return false;
+
+    if (containsSensitiveInformation(title + " " + content)) {
+        return false;
+    }
+
+    const duplicate = memories.some(memory =>
+        memory.title.toLowerCase() === title.toLowerCase() &&
+        memory.content.toLowerCase() === content.toLowerCase()
+    );
+
+    if (duplicate) return false;
+
+    memories.unshift({
+        id: makeId(),
+        title,
+        content,
+        category,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    });
+
+    saveMemories();
+    return true;
+}
+
+function detectMemory(message) {
+    const text = safeText(message);
+
+    if (!text || containsSensitiveInformation(text)) return;
+
+    const lower = text.toLowerCase();
+
+    const explicit =
+        lower.includes("remember that") ||
+        lower.includes("remember this") ||
+        lower.includes("save this") ||
+        lower.includes("don't forget that");
+
+    const preference =
+        lower.includes("i prefer") ||
+        lower.includes("i like") ||
+        lower.includes("i love") ||
+        lower.includes("i hate") ||
+        lower.includes("i dislike") ||
+        lower.includes("i don't like") ||
+        lower.includes("from now on") ||
+        lower.includes("in the future");
+
+    const project =
+        lower.includes("i'm making") ||
+        lower.includes("i am making") ||
+        lower.includes("my project is") ||
+        lower.includes("i'm building") ||
+        lower.includes("i am building");
+
+    if (!explicit && !preference && !project) return;
+
+    let title = "Saved detail";
+    let category = "General";
+
+    if (preference) {
+        title = "Preference";
+        category = "Preferences";
+    }
+
+    if (project) {
+        title = "Project";
+        category = "Projects";
+    }
+
+    if (explicit) {
+        title = "Remembered detail";
+        category = "Important";
+    }
+
+    createMemory(title, text, category);
+}
+
+function renderMemories(search = "") {
+    if (!memoryList) return;
+
+    memoryList.innerHTML = "";
+
+    const filtered = memories.filter(memory => {
+        const combined =
+            memory.title + " " +
+            memory.content + " " +
+            memory.category;
+
+        return combined.toLowerCase().includes(search.toLowerCase());
+    });
+
+    if (memoryCount) {
+        memoryCount.textContent = memories.length;
+    }
+
+    if (memoryStats) {
+        memoryStats.textContent =
+            memories.length + " saved memories";
+    }
+
+    if (filtered.length === 0) {
+        const empty = document.createElement("p");
+        empty.className = "memory-empty";
+        empty.textContent = search
+            ? "No memories match that search."
+            : "No memories saved yet.";
+        memoryList.appendChild(empty);
+        return;
+    }
+
+    filtered.forEach(memory => {
+        const card = document.createElement("div");
+        card.className = "memory-card";
+
+        const header = document.createElement("div");
+        header.className = "memory-card-header";
+
+        const title = document.createElement("h3");
+        title.textContent = memory.title;
+
+        const category = document.createElement("span");
+        category.textContent = memory.category || "General";
+
+        header.append(title, category);
+
+        const content = document.createElement("p");
+        content.textContent = memory.content;
+
+        const actions = document.createElement("div");
+        actions.className = "memory-actions";
+
+        const edit = document.createElement("button");
+        edit.textContent = "Edit";
+        edit.type = "button";
+
+        edit.addEventListener("click", () => {
+            const newTitle = prompt("Memory title:", memory.title);
+            if (newTitle === null) return;
+
+            const newContent = prompt(
+                "Memory content:",
+                memory.content
+            );
+
+            if (newContent === null) return;
+
+            if (containsSensitiveInformation(newTitle + " " + newContent)) {
+                alert("N0V4 cannot save sensitive personal information.");
+                return;
+            }
+
+            if (!newTitle.trim() || !newContent.trim()) return;
+
+            memory.title = newTitle.trim();
+            memory.content = newContent.trim();
+            memory.updatedAt = new Date().toISOString();
+
+            saveMemories();
+        });
+
+        const remove = document.createElement("button");
+        remove.textContent = "Delete";
+        remove.type = "button";
+
+        remove.addEventListener("click", () => {
+            if (!confirm("Delete this memory?")) return;
+
+            memories = memories.filter(item => item.id !== memory.id);
+            saveMemories();
+        });
+
+        actions.append(edit, remove);
+        card.append(header, content, actions);
+        memoryList.appendChild(card);
+    });
+}
+
+if (memoryForm) {
+    memoryForm.addEventListener("submit", event => {
+        event.preventDefault();
+
+        const title = document.getElementById("memoryTitle");
+        const content = document.getElementById("memoryContent");
+        const category = document.getElementById("memoryCategory");
+
+        if (!title || !content) return;
+
+        const saved = createMemory(
+            title.value,
+            content.value,
+            category ? category.value : "General"
+        );
+
+        if (!saved) {
+            alert("That memory couldn't be saved. Check that it isn't sensitive information or a duplicate.");
+            return;
+        }
+
+        memoryForm.reset();
+    });
+}
+
+if (memorySearch) {
+    memorySearch.addEventListener("input", () => {
+        renderMemories(memorySearch.value);
+    });
+}
+
+/* ==========================================
+   N0V4 KNOWLEDGE BASE
+========================================== */
+
+const knowledgeBase = [
+    {
+        keywords: ["n0v4", "nova", "website", "building"],
+        answer: "N0V4 is our own assistant project. We're building its interface, memory system and conversation archive step by step."
+    },
+    {
+        keywords: ["youtube", "gojo", "seek", "channel"],
+        answer: "Gojo & Seek Playz! The channel focused on Shorts, memes and gaming content."
+    },
+    {
+        keywords: ["steve", "pigeon", "steves"],
+        answer: "The Steve situation remains classified. The pigeons have their own operations, and the seagulls are still considered enemies."
+    },
+    {
+        keywords: ["roblox", "movie maker", "truck", "chase"],
+        answer: "The Roblox Movie Maker 4 chase animation! The mysterious truck, the R6 driver and the driveway scene."
+    },
+    {
+        keywords: ["capcut", "sky theme", "melancholy"],
+        answer: "The CapCut sky-themed project, featuring the thoughtful melancholy text and that Nova-inspired design."
+    }
+];
+
+/* ==========================================
+   MEMORY RECALL
+========================================== */
+
+function findRelevantMemory(message) {
+    const words = message.toLowerCase()
+        .split(/\W+/)
+        .filter(word => word.length > 3);
+
+    let bestMemory = null;
+    let bestScore = 0;
+
+    memories.forEach(memory => {
+        const combined = (
+            memory.title + " " +
+            memory.content + " " +
+            memory.category
+        ).toLowerCase();
+
+        let score = 0;
+
+        words.forEach(word => {
+            if (combined.includes(word)) score++;
+        });
+
+        if (score > bestScore) {
+            bestScore = score;
+            bestMemory = memory;
+        }
+    });
+
+    return bestScore > 0 ? bestMemory : null;
+}
+
+/* ==========================================
+   RESPONSE BRAIN
+========================================== */
+
+function getResponse(message) {
+    const text = message.toLowerCase().trim();
+
+    const greetings = [
+        "hi", "hello", "hey", "yo",
+        "hiya", "sup", "good morning",
+        "good evening", "good afternoon"
+    ];
+
+    if (greetings.some(greeting =>
+        text === greeting || text.startsWith(greeting + " ")
+    )) {
+        return "Hey Boss! N0V4 systems are online. What's happening?";
+    }
+
+    if (
+        text.includes("thank you") ||
+        text.includes("thanks") ||
+        text === "ty"
+    ) {
+        return "Anytime, Boss. That's what I'm here for.";
+    }
+
+    if (
+        text.includes("who are you") ||
+        text.includes("what are you")
+    ) {
+        return "I'm N0V4 — your custom-built assistant. Still evolving, but the systems are getting stronger.";
+    }
+
+    if (
+        text.includes("your name") ||
+        text.includes("what should i call you")
+    ) {
+        return "N0V4. Nova if we're keeping it simple.";
+    }
+
+    if (
+        text.includes("joke") ||
+        text.includes("make me laugh")
+    ) {
+        const jokes = [
+            "Why did the computer go to the doctor? It had a virus.",
+            "I told my computer I needed a break. It said: no problem, I'll go to sleep.",
+            "Why was the maths book sad? It had too many problems."
+        ];
+
+        return jokes[Math.floor(Math.random() * jokes.length)];
+    }
+
+    if (
+        text.includes("time") &&
+        !text.includes("sometimes")
+    ) {
+        return "Your device says it's " +
+            new Date().toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit"
+            }) + ".";
+    }
+
+    if (text.includes("date") || text.includes("today")) {
+        return "Today is " +
+            new Date().toLocaleDateString([], {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            }) + ".";
+    }
+
+    if (
+        text.includes("memory") ||
+        text.includes("remember")
+    ) {
+        return "Memory Centre currently contains " +
+            memories.length +
+            " saved memories. You can view and manage them in the Memory Centre.";
+    }
+
+    for (const entry of knowledgeBase) {
+        if (entry.keywords.some(keyword => text.includes(keyword))) {
+            return entry.answer;
+        }
+    }
+
+    const memory = findRelevantMemory(message);
+
+    if (memory) {
+        return "I found something in Memory Centre that might help:\n\n" +
+            memory.title + ": " + memory.content;
+    }
+
+    if (
+        text.includes("help") ||
+        text.includes("what can you do")
+    ) {
+        return "I can chat, tell jokes, recall saved memories, and help with the N0V4 project. My brain is still developing, so I won't know everything yet.";
+    }
+
+    return "I'm listening, Boss. My current brain doesn't have a specific answer for that yet, but we can work it out together.";
+}
+
+/* ==========================================
+   CHAT HISTORY STORAGE
+========================================== */
+
+function loadConversations() {
+    try {
+        const saved = localStorage.getItem(CHAT_HISTORY_KEY);
+
+        if (saved) {
+            conversations = JSON.parse(saved) || [];
+        } else {
+            conversations = [];
+
+            // Import the previous single conversation if available.
+            const oldChat = localStorage.getItem(OLD_CHAT_KEY);
+
+            if (oldChat) {
+                const oldMessages = JSON.parse(oldChat);
+
+                if (Array.isArray(oldMessages) && oldMessages.length) {
+                    const importedMessages = oldMessages.map(message => ({
+                        sender: message.sender === "nova" ? "nova" : "user",
+                        text: message.text || message.messageText || "",
+                        timestamp: message.timestamp || new Date().toISOString()
+                    }));
+
+                    conversations.push({
+                        id: makeId(),
+                        title: "Previous conversation",
+                        messages: importedMessages,
+                        createdAt: new Date().toISOString(),
+                        updatedAt: new Date().toISOString()
+                    });
+
+                    saveConversations();
+                }
+            }
+        }
+    } catch (error) {
+        console.error("Could not load chat history:", error);
+        conversations = [];
+    }
+
+    conversations.sort((a, b) =>
+        new Date(b.updatedAt) - new Date(a.updatedAt)
+    );
+
+    activeConversationId = conversations.length
+        ? conversations[0].id
+        : null;
+}
+
+function saveConversations() {
+    conversations.sort((a, b) =>
+        new Date(b.updatedAt) - new Date(a.updatedAt)
+    );
+
+    saveJSON(CHAT_HISTORY_KEY, conversations);
+    renderHistory();
+}
+
+function createConversation() {
+    const conversation = {
+        id: makeId(),
+        title: "New conversation",
+        messages: [],
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    };
+
+    conversations.push(conversation);
+    activeConversationId = conversation.id;
+
+    renderChat();
+    return conversation;
+}
+
+function getActiveConversation() {
+    return conversations.find(
+        item => item.id === activeConversationId
+    );
+}
+
+function createConversationTitle(message) {
+    let title = safeText(message).replace(/\s+/g, " ");
+
+    if (title.length > 42) {
+        title = title.slice(0, 42).trim() + "...";
+    }
+
+    return title || "New conversation";
+}
+
+/* ==========================================
+   CHAT DISPLAY
+========================================== */
+
+function addMessage(sender, messageText) {
+    if (!chat) return;
+
+    const message = document.createElement("div");
+    message.className = "message " + sender + "-message";
+
+    const content = document.createElement("div");
+    content.className = "message-content";
+    content.textContent = messageText;
+
+    message.appendChild(content);
+    chat.appendChild(message);
+
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function renderChat() {
+    if (!chat) return;
+
+    chat.innerHTML = "";
+
+    const conversation = getActiveConversation();
+
+    if (conversationTitle) {
+        conversationTitle.textContent = conversation
+            ? conversation.title
+            : "New conversation";
+    }
+
+    if (!conversation || conversation.messages.length === 0) {
+        addMessage("nova", "System initialised. I'm ready when you are.");
+        return;
+    }
+
+    conversation.messages.forEach(message => {
+        addMessage(message.sender, message.text);
+    });
+}
+
+/* ==========================================
+   HISTORY CENTRE
+========================================== */
+
+function renderHistory(search = "") {
+    if (!historyCards) return;
+
+    historyCards.innerHTML = "";
+
+    const filtered = conversations.filter(conversation => {
+        const preview = conversation.messages.length
+            ? conversation.messages[0].text
+            : "";
+
+        return (
+            conversation.title.toLowerCase().includes(search.toLowerCase()) ||
+            preview.toLowerCase().includes(search.toLowerCase())
+        );
+    });
+
+    if (historyCount) {
+        historyCount.textContent =
+            conversations.length + " conversations";
+    }
+
+    if (filtered.length === 0) {
+        const empty = document.createElement("p");
+        empty.className = "history-empty";
+        empty.textContent = search
+            ? "No conversations found."
+            : "Your conversation history will appear here.";
+        historyCards.appendChild(empty);
+    }
+
+    filtered.forEach(conversation => {
+        const card = document.createElement("div");
+        card.className = "history-card";
+
+        const main = document.createElement("div");
+        main.className = "history-card-main";
+        main.tabIndex = 0;
+        main.setAttribute("role", "button");
+
+        const title = document.createElement("h3");
+        title.textContent = conversation.title;
+
+        const preview = document.createElement("p");
+        const lastMessage = conversation.messages[
+            conversation.messages.length - 1
+        ];
+
+        preview.textContent = lastMessage
+            ? lastMessage.text.slice(0, 100)
+            : "No messages yet.";
+
+        const date = document.createElement("small");
+        date.textContent = formatDate(conversation.updatedAt);
+
+        main.append(title, preview, date);
+
+        main.addEventListener("click", () => {
+            openConversation(conversation.id);
+        });
+
+        main.addEventListener("keydown", event => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                openConversation(conversation.id);
+            }
+        });
+
+        const actions = document.createElement("div");
+        actions.className = "history-card-actions";
+
+        const openButton = document.createElement("button");
+        openButton.type = "button";
+        openButton.textContent = "Open";
+
+        openButton.addEventListener("click", () => {
+            openConversation(conversation.id);
+        });
+
+        const deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.className = "delete-chat";
+        deleteButton.textContent = "Delete";
+
+        deleteButton.addEventListener("click", () => {
+            deleteConversation(conversation.id);
+        });
+
+        actions.append(openButton, deleteButton);
+        card.append(main, actions);
+        historyCards.appendChild(card);
+    });
+
+    renderSidebarHistory();
+}
+
+function renderSidebarHistory() {
+    if (!historyList) return;
+
+    historyList.innerHTML = "";
+
+    conversations.slice(0, 5).forEach(conversation => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "history-item";
+        button.textContent = conversation.title;
+
+        button.addEventListener("click", () => {
+            openConversation(conversation.id);
+        });
+
+        historyList.appendChild(button);
+    });
+}
+
+function openConversation(id) {
+    const conversation = conversations.find(item => item.id === id);
+
+    if (!conversation) return;
+
+    activeConversationId = id;
+    renderChat();
+    showPage("chat");
+}
+
+function deleteConversation(id) {
+    if (!confirm("Delete this conversation permanently?")) return;
+
+    conversations = conversations.filter(item => item.id !== id);
+
+    if (activeConversationId === id) {
+        activeConversationId = null;
+        createConversation();
+    }
+
+    saveConversations();
+    renderChat();
+    showPage("history");
+}
+
+if (historySearch) {
+    historySearch.addEventListener("input", () => {
+        renderHistory(historySearch.value);
+    });
+}
+
+/* ==========================================
+   SEND MESSAGE
+========================================== */
+
+function sendMessage(messageText) {
+    const text = safeText(messageText);
+
+    if (!text) return;
+
+    if (!getActiveConversation()) {
+        createConversation();
+    }
+
+    const conversation = getActiveConversation();
+
+    if (!conversation) return;
+
+    const targetId = conversation.id;
+    const isFirstMessage = conversation.messages.length === 0;
+
+    conversation.messages.push({
+        sender: "user",
+        text,
+        timestamp: new Date().toISOString()
+    });
+
+    if (isFirstMessage) {
+        conversation.title = createConversationTitle(text);
+    }
+
+    conversation.updatedAt = new Date().toISOString();
+
+    detectMemory(text);
+
+    addMessage("user", text);
+    saveConversations();
+
+    if (input) input.value = "";
+
+    const typing = document.createElement("div");
+    typing.className = "message nova-message typing-message";
+    typing.textContent = "N0V4 is thinking...";
+    chat.appendChild(typing);
+
+    chat.scrollTop = chat.scrollHeight;
+
+    setTimeout(() => {
+        const targetConversation = conversations.find(
+            item => item.id === targetId
+        );
+
+        if (!targetConversation) return;
+
+        const response = getResponse(text);
+
+        targetConversation.messages.push({
+            sender: "nova",
+            text: response,
+            timestamp: new Date().toISOString()
+        });
+
+        targetConversation.updatedAt = new Date().toISOString();
+
+        saveConversations();
+
+        if (activeConversationId === targetId) {
+            renderChat();
+        }
+    }, 700);
+}
+
+if (form) {
+    form.addEventListener("submit", event => {
+        event.preventDefault();
+
+        if (!input) return;
+
+        sendMessage(input.value);
+    });
+}
+
+/* ==========================================
+   PAGE NAVIGATION
+========================================== */
+
+function showPage(page) {
+    activePage = page;
+
+    if (welcome) {
+        welcome.style.display = page === "home" ? "" : "none";
+    }
+
+    const chatSection = chat
+        ? chat.closest(".chat-section")
+        : null;
+
+    if (chatSection) {
+        chatSection.style.display =
+            page === "chat" || page === "home" ? "" : "none";
+    }
+
+    if (memoryPanel) {
+        memoryPanel.hidden = page !== "memory";
+    }
+
+    if (historyPanel) {
+        historyPanel.hidden = page !== "history";
+    }
+
+    document.querySelectorAll(".nav-item").forEach(item => {
+        item.classList.remove("active");
+    });
+
+    const navIds = {
+        home: "homeButton",
+        chat: "chatButton",
+        history: "historyButton",
+        memory: "memoryButton",
+        settings: "settingsButton"
+    };
+
+    const activeButton = document.getElementById(navIds[page]);
+
+    if (activeButton) {
+        activeButton.classList.add("active");
+    }
+
+    if (page === "history") {
+        renderHistory(historySearch ? historySearch.value : "");
+    }
+
+    if (page === "memory") {
+        renderMemories(memorySearch ? memorySearch.value : "");
+    }
+}
+
+/* ==========================================
+   NAVIGATION BUTTONS
+========================================== */
+
+const homeButton = document.getElementById("homeButton");
+const chatButton = document.getElementById("chatButton");
+const historyButton = document.getElementById("historyButton");
+const memoryButton = document.getElementById("memoryButton");
+const settingsButton = document.getElementById("settingsButton");
+
+if (homeButton) {
+    homeButton.addEventListener("click", () => {
+        showPage("home");
+    });
+}
+
+if (chatButton) {
+    chatButton.addEventListener("click", () => {
+        createConversation();
+        showPage("chat");
+    });
+}
+
+if (historyButton) {
+    historyButton.addEventListener("click", () => {
+        showPage("history");
+    });
+}
+
+if (memoryButton) {
+    memoryButton.addEventListener("click", () => {
+        showPage("memory");
+    });
+}
+
+if (settingsButton) {
+    settingsButton.addEventListener("click", () => {
+        showPage("settings");
+        alert("N0V4 Settings Centre is coming soon.");
+    });
+}
+
+/* ==========================================
+   NEW CHAT + CLEAR CHAT
+========================================== */
+
+const newChatButton = document.getElementById("newChatButton");
+const clearChatButton = document.getElementById("clearChat");
+
+if (newChatButton) {
+    newChatButton.addEventListener("click", () => {
+        createConversation();
+        showPage("chat");
+    });
+}
+
+if (clearChatButton) {
+    clearChatButton.addEventListener("click", () => {
+        const conversation = getActiveConversation();
+
+        if (!conversation || conversation.messages.length === 0) {
+            createConversation();
+            renderChat();
+            return;
+        }
+
+        if (!confirm("Clear this conversation? Your saved memories will stay safe.")) {
+            return;
+        }
+
+        conversations = conversations.filter(
+            item => item.id !== activeConversationId
+        );
+
+        activeConversationId = null;
+
+        saveConversations();
+        createConversation();
+        renderChat();
+    });
+}
+
+/* ==========================================
+   QUICK ACTION CARDS
+========================================== */
+
+document.querySelectorAll("[data-prompt]").forEach(button => {
+    button.addEventListener("click", () => {
+        const promptText = button.getAttribute("data-prompt");
+
+        createConversation();
+        showPage("chat");
+
+        if (input) {
+            input.value = promptText;
+            input.focus();
+        }
+    });
+});
+
+/* ==========================================
+   START N0V4
+========================================== */
+
+loadMemories();
+loadConversations();
+
+if (activeConversationId) {
+    renderChat();
+} else {
+    createConversation();
+}
+
+renderHistory();
+showPage("home");
+
+console.log("N0V4 Version 8.0 online.");
+console.log("Memory Centre: READY");
+console.log("History Centre: READY");
+console.log("Conversation archive: READY");
+
+})();
+</script>
+</body>
+</html>
