@@ -1,0 +1,11 @@
+
+{
+  "name": "N0V4 AI",
+  "short_name": "N0V4",
+  "start_url": "/n0v4/",
+  "display": "standalone",
+  "background_color": "#050914",
+  "theme_color": "#050914",
+  "description": "Your personal N0V4 assistant"
+}
+
